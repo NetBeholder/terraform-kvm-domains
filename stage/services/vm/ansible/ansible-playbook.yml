@@ -1,0 +1,25 @@
+---
+- name: Example of OS configuration by Ansible inside Terraform.
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install Nginx
+      ansible.builtin.apt:
+        name: nginx
+
+    - name: Start Nginx Service
+      ansible.builtin.service:
+        name: nginx
+        state: started
+
+    - name: Install packages
+      ansible.builtin.apt:
+        pkg:
+          - psmisc
+          - tree
+          - command-not-found
