@@ -27,7 +27,7 @@ When using in production, always remember about operational security. Passwords 
 2. [How to run](#how-to-run)
 3. [Refs](#refs)
 # Basic concepts
-* State files isolation. Isolating Terraform Project State Files with Directory Structure
+* State files isolation. Isolating Terraform project state files with directory structure.
 * Modules. The code was structured using modules for maximum flexibility and reproducibility.
 * Separate the sheep from the goats. Environment creation (e.g. stage) is separated from KVM level settings (pools creation) and dependencies needed to create virtual machines (OS image downloads).
 ## Directory structure
@@ -51,7 +51,7 @@ At the highest level there are separate folders for each "environment" and a com
     * (bla-bla-bla)
 
 So, at the moment, on the stage/services/vm path there is a script that creates virtual machines (one or more) running Debian 12 GNU/Linux OS.
-Let's say, for example, we need to automate the deployment of virtual machines with the CentOS GNU/Linux OS. So, by analogy, we will create a directory structure 'stage/services/vm-centos' or 'even stage/services/vm/vm-centos' and add the necessary code there. Next, you need to take into account the specifics of configuring this OS in the corresponding Ansible playbook, the cloud-init configuration file, and do not forget to take into account loading the required OS image (terraform is responsible for these resources in global/images)
+Let's say, for example, we need to automate the deployment of virtual machines with the CentOS GNU/Linux OS. So, by analogy, we will create a directory structure 'stage/services/vm-centos' or even 'stage/services/vm/vm-centos' and add the necessary code there. Next, you need to take into account the specifics of configuring this OS in the corresponding Ansible playbook, the cloud-init configuration file, and do not forget to take into account loading the required OS image (terraform is responsible for these resources in global/images)
 ## Sequence of deployment steps
 1. KVM pools.
 2. Loading the used OS images.
