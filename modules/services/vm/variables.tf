@@ -1,8 +1,8 @@
-# Префикс для создаваемых объектов
-# variable "vm_name_prefix" {
+# variable "vm_prefix_name" {
 #   type    = string
 #   default = "vm"
 # }
+
 variable "pool_name" {
   type = string
 }
@@ -22,21 +22,9 @@ variable "vm" {
   })
 }
 
-#cloud init 
-# variable "custom_user_data" {
-#   type = object({
-#     rendered = string
-#   })
-# }
-
-# }
 variable "custom_user_data" {
   description = "Used for passing to module's user_data (cloud-init.cfg template)"
 }
-
-# variable "ansible_playbook_data" {
-
-# }
 
 variable "project_images_pool_name" {
   type = string
@@ -47,7 +35,3 @@ variable "ansible_playbook_name" {
   description = "Parameterize the name of the Ansible script"
   # somthing like Debian12-PrepareNewHost.yml
 }
-
-# locals {
-#   ansible_playbook_scenario = var.ansible_playbook_data
-# }

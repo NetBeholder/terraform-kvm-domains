@@ -8,9 +8,7 @@ terraform {
 
 resource "libvirt_volume" "vm_system_disk" {
   name           = "${var.vm.name}_disk_1.qcow2"
-#  pool           = libvirt_pool.pool.name
   pool           = "${var.pool_name}"
-#  base_volume_id = libvirt_volume.image.id
   base_volume_id = "${var.base_image_id}"
   size           = var.vm.disk_size
 }
@@ -19,15 +17,13 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   name      = "commoninit-${var.vm.name}.iso"
   pool      = "${var.project_images_pool_name}"
   user_data = data.template_file.user_data.rendered
-#  user_data = "${var.custom_user_data.rendered}"
-
 }
 
  data "template_file" "user_data" {
 #  template = file("${path.module}/cloud_init.cfg")
-   template = "${var.custom_user_data}"
-   vars = {
-     hostname = "${var.vm.name}" 
+    template = "${var.custom_user_data}"
+    vars = {
+      hostname = "${var.vm.name}" 
    }
 }
 
@@ -63,8 +59,6 @@ resource "libvirt_domain" "vm" {
 
 # ansible
 resource "null_resource" "run_ansible_playbook" {
-#  count = length(cherryservers_server.demo-servers)
-
   # we wait until the ssh daemon rises...
   provisioner "local-exec" {
     command     = "until nc -zv ${libvirt_domain.vm.network_interface[0].addresses.0} 22; do echo 'Waiting for SSH to be available...'; sleep 5; done"
@@ -80,21 +74,3 @@ resource "null_resource" "run_ansible_playbook" {
     working_dir = path.module
   }
 }
-
-#  user_data = data.template_file.user_data.rendered
-#  user_data = "${var.custom_user_data.rendered}"
-
-#}
-
-#  data "template_file" "ansible_playbook" {
-# #  template = file("${path.module}/cloud_init.cfg")
-#    template = "${var.ansible_playbook_data}"
-#   vars = {
-#     hostname = "${var.vm.name}" 
-#   }
-# }
-
-# resource "local_file" "ansible_playbook_file" {
-#   filename = "ansible_playbook_${var.vm.name}.yml"
-#   content  = local.ansible_playbook_scenario
-# }

@@ -1,11 +1,11 @@
-# output "project_domains" {
-#   value = "${module.project_vm}"
-# }
+# list
+output "project_domains_list" {
+  value = [for i in module.project_domains : i.project_domains]
+}
 
-# output "test" {
-#   value = "${module.project_vm}"
-# }
-
-output "project_domains" {
-  value = [for i in module.project_vm : i.project_domains]
+### map
+output "project_domains_map" {
+  value =  {
+    for k, domain in module.project_domains : k => domain.project_domains
+  }
 }

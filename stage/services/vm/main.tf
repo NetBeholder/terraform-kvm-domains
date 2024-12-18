@@ -7,7 +7,14 @@ terraform {
 }
 
 provider "libvirt" {
-  uri = "qemu+ssh://sergey@192.168.16.10/system"
+  uri = local.libvirt_uri
+}
+
+data "terraform_remote_state" "global_vars" {
+  backend = "local"
+  config = {
+    path = "../../../global/vars/terraform.tfstate"
+  }
 }
 
 data "terraform_remote_state" "images" {
@@ -24,21 +31,13 @@ data "terraform_remote_state" "pools" {
   }
 }
 
-#foreach through array of VM objects
-module "project_vm" {
+module "project_domains" {
   source = "../../../modules/services/vm"
-  #project_images_pool_name   = "${data.terraform_remote_state.pools.outputs.project_images_pool.name}"
-  project_images_pool_name   = "${data.terraform_remote_state.pools.outputs.project_pools["${var.project}-images"].name}"
-
+  project_images_pool_name   = "${data.terraform_remote_state.pools.outputs.project_pools["${local.project_name}-images"].name}"
   for_each = { for each in var.vms : each.name => each }
-  # volume vars
-  #base_image_id = "${data.terraform_remote_state.images.outputs.debian-12-generic-image.id}"
   base_image_id = "${data.terraform_remote_state.images.outputs.project_parent_images["debian-12-generic-amd64.qcow2"].id}"
-
-
-  #pool_name = "${data.terraform_remote_state.pools.outputs.project_stage_pool.name}"
-  pool_name = "${data.terraform_remote_state.pools.outputs.project_pools["${var.project}-stage"].name}"
-
+  # this stage pool
+  pool_name = "${data.terraform_remote_state.pools.outputs.project_pools["${local.project_name}-stage"].name}"
   # vm vars
   vm = each.value
   custom_user_data = file("${path.module}/cloud_init.cfg")

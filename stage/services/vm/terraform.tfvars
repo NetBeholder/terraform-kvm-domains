@@ -1,6 +1,3 @@
-project = "test-project"
-
-# ./ansible/ansible-playbook.yml
 ansible_playbook_name = "ansible-playbook.yml"
 
 # single VM
@@ -21,7 +18,6 @@ vms = [
     disk_size = 10 * 1024 * 1024 * 1024 #10Gb
     ram       = 2 * 1024 # 2Gb
     autostart = "false"
-
   },
   {
     name      = "test-vm-02"

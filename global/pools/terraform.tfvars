@@ -1,4 +1,4 @@
-project = "test-project"
+# project = "test-project"
 
 base_project_pool_path = "/media/LocalStorage/VMs"
 
