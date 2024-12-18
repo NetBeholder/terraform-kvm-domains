@@ -31,10 +31,14 @@ terraform {
 #   source = var.image.url
 # }
 
-resource "libvirt_volume" "images" {
-    for_each = { for each in var.images : each.name => each }
-    name    = each.value.name
+resource "libvirt_volume" "image" {
+#    for_each = { for each in var.images : each.name => each }
+    #name    = each.value.name
+    name    = var.image.name 
+    #each.value.name
+
     format  = "qcow2"
-    pool    = var.project_images_pool
-    source  = each.value.url
+    pool    = var.project_images_pool_name
+    #source  = each.value.url
+    source  = var.image.url
 }

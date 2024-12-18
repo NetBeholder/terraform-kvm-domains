@@ -16,14 +16,36 @@
 # }
 
 # }
-output "project_base_images" {
-  value = "${module.project_images.project_base_images}"
+
+
+
+
+# output "project_parent_images" {
+#   value = { for i in module.project_images : i => module.project_images.project_parent_images }
+# }
+
+# list
+# output "project_parent_images" {
+#   value = [ for i in module.project_images : i.project_parent_images ]
+# }
+
+# map
+output "project_parent_images" {
+  value = {
+    for k, image in module.project_images : k => image.project_parent_images
+  }
 }
 
-output "debian-12-image" {
-  value = "${module.project_images.project_base_images["debian-12-genericcloud-amd64.qcow2"]}"
-}
 
-output "debian-12-generic-image" {
-  value = "${module.project_images.project_base_images["debian-12-generic-amd64.qcow2"]}"
-}
+
+
+
+
+
+# output "debian-12-image" {
+#   value = "${module.project_images.project_parent_images["debian-12-genericcloud-amd64.qcow2"]}"
+# }
+
+# output "project_parent_images" {
+#   value = "${module.project_images}"
+# }

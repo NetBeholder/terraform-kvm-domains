@@ -1,3 +1,5 @@
+project = "test-project"
+
 # ./ansible/ansible-playbook.yml
 ansible_playbook_name = "ansible-playbook.yml"
 

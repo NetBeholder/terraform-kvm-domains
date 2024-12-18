@@ -4,3 +4,7 @@ variable "images" {
     url     = string
   }))
 }
+
+variable "project" {
+  type = string
+}

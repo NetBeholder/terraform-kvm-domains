@@ -1,3 +1,5 @@
+project = "test-project"
+
 images = [
   {
     name   = "debian-12-genericcloud-amd64.qcow2"

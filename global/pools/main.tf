@@ -11,18 +11,10 @@ provider "libvirt" {
 }
 
 module "project_pools" {
-  source         = "../../modules/global/pools"
-  project        = "test-project"
-  base_project_pool_path = "/media/LocalStorage/VMs"
-#   for_each = { for each in var.images : each.name => each }
-#   image = {
-#     name    = each.value.name
-#     url     = each.value.url
-#   }
-
-
-#   image = {
-#     name = "debian-12-genericcloud-amd64.qcow2"
-#     url = "https://cdimage.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2"
-#   }
+  source                 = "../../modules/global/pools"
+  project                = var.project
+  base_project_pool_path = var.base_project_pool_path 
+  for_each = { for each in local.project_pools : each.name => each }
+  pool_name = each.value.name
+  pool_target_path = each.value.path
 }

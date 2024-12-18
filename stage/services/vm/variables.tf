@@ -24,3 +24,6 @@ variable "vms" {
   }))
 }
 
+variable "project" {
+  type = string
+}

@@ -5,6 +5,6 @@
 # output "full_project_pool_path" {
 #   value = "${local.full_project_pool_path}"
 # }
-output "project_base_images" {
-  value = "${libvirt_volume.images}"
+output "project_parent_images" {
+  value = "${libvirt_volume.image}"
 }
