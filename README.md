@@ -33,9 +33,10 @@ When using in production, always remember about operational security. Passwords 
 ## Directory structure
 Let's look at the folder structure.
 At the highest level there are separate folders for each "environment" and a common resource for all environments.
-* *global* (creates pools and download images)
+* *global* (defines variables that are available throughout the project, creates pools and downloads images)
   * images
   * pools
+  * vars
 * *modules* (stores code that is reused by other resources)
   * global
     * images
